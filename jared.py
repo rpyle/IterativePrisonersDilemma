@@ -9,7 +9,9 @@ import random
 team_name = 'Jeff' # Only 10 chars displayed.
 strategy_name = 'His name is Jeff'
 strategy_description = 'checks if it is playing against tit for tat and decides on a strategy'
-    
+start = 'cbccbc'
+prey = 'bcbbcb'
+
 def move(my_history, their_history, my_score, their_score):
     ''' Arguments accepted: my_history, their_history are strings.
     my_score, their_score are ints.
@@ -18,22 +20,22 @@ def move(my_history, their_history, my_score, their_score):
     Returns 'c' or 'b'. 
     '''
 
-    while len(my_history) < 10:
-        return 'b'
-
-    if their_history[0:9] == ['c', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b']:
-        pickrand = random.randint(0,100)
-        if pickrand <= 50:
-            return 'c'
-        else:
-            return 'b'
-    if my_score < their_score:
-        if their_history(-1) == 'b':
-            return 'b'
-        else:
-            return 'c'
+    if len(my_history) < 6:
+        return start[len(my_history)]
+        
+    if their_history[0:6] == prey:
+        return 'b'  
     else:
-        return 'b'
+        if their_history[0:6] == ['cbbbbb']:
+            pickrand = random.randint(0,100)
+            if pickrand <= 50:
+                return 'c'
+            else:
+                return 'b'
+        if their_history[-1] == 'b':
+            return 'b'
+        else:
+            return 'c'
             
     # my_history: a string with one letter (c or b) per round that has been played with this opponent.
     # their_history: a string of the same length as history, possibly empty. 
